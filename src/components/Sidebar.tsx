@@ -6,7 +6,8 @@ import {
   LogOut,
   LucideIcon,
   BoxIcon,
-  User2
+  User2,
+  ShoppingCart
 } from 'lucide-react';
 import { AuthContext } from '../AuthProvider/Authprovider';
 import { Link, useNavigate } from 'react-router-dom';
@@ -30,6 +31,7 @@ const ADMIN_MENU: MenuItem[] = [
 const USER_MENU: MenuItem[] = [
   { icon: Home, label: 'Dashboard', href: '/dashboard' },
   { icon: ShoppingBag, label: 'Orders', href: '/dashboard/orders' },
+  { icon: ShoppingCart, label: 'Cart', href: '/dashboard/cart' },
   { icon: User2, label: 'Profile', href: '/dashboard/profile' },
   // { icon: Settings, label: 'Settings', href: '/dashboard/settings' }
 ];

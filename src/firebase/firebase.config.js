@@ -4,12 +4,12 @@ import { getAuth } from "firebase/auth"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDxCeB7XbNBG1fg0IqV0lUfstF4zlntJDY",
-  authDomain: "pawcare-f91c9.firebaseapp.com",
-  projectId: "pawcare-f91c9",
-  storageBucket: "pawcare-f91c9.firebasestorage.app",
-  messagingSenderId: "626251363968",
-  appId: "1:626251363968:web:83d0b446c48acc4a2c5865"
+  apiKey: "AIzaSyAbvdmTs0kAC4PNBqFONJbbdZOZiWxrTsQ",
+  authDomain: "cloth-ecommerce-a6c11.firebaseapp.com",
+  projectId: "cloth-ecommerce-a6c11",
+  storageBucket: "cloth-ecommerce-a6c11.firebasestorage.app",
+  messagingSenderId: "619967994299",
+  appId: "1:619967994299:web:f81d2e96783d00849f4c9e"
 };
 
 // Initialize Firebase

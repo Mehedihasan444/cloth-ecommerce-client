@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   Table,
   TableBody,
@@ -9,37 +10,31 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Eye } from 'lucide-react';
-
-const orders = [
-  {
-    id: '#ORD-001',
-    date: '2024-03-15',
-    total: 129.99,
-    status: 'processing',
-    items: 3,
-  },
-  {
-    id: '#ORD-002',
-    date: '2024-03-10',
-    total: 259.99,
-    status: 'delivered',
-    items: 2,
-  },
-  // Add more orders as needed
-];
-
+import { toast } from 'sonner';
 export default function UserOrders() {
+  const [orders, setorders] = useState([]);
+    useEffect(() => {
+      fetch("http://localhost:5000/orders")
+        .then((res) => res.json())
+        .then((data) => {
+          setorders(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching products:', error);
+          toast.error('Failed to fetch products');
+        });
+    }, [orders]);
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className=" mx-auto px-4 py-8l">
       <h1 className="text-3xl font-bold mb-8">My Orders</h1>
 
-      <div className="rounded-md border">
+      <div className="rounded-md border w-900px">
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Order ID</TableHead>
               <TableHead>Date</TableHead>
-              <TableHead>Items</TableHead>
+              <TableHead>Quantity</TableHead>
               <TableHead>Total</TableHead>
               <TableHead>Status</TableHead>
               <TableHead className="text-right">Actions</TableHead>

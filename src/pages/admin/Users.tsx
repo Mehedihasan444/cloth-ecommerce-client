@@ -9,28 +9,22 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Ban, CheckCircle } from 'lucide-react';
-
-const users = [
-  {
-    id: '1',
-    name: 'John Doe',
-    email: 'john@example.com',
-    role: 'user',
-    status: 'active',
-    joinDate: '2024-02-15',
-  },
-  {
-    id: '2',
-    name: 'Jane Smith',
-    email: 'jane@example.com',
-    role: 'user',
-    status: 'inactive',
-    joinDate: '2024-03-01',
-  },
-  // Add more users as needed
-];
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 export default function AdminUsers() {
+  const [users, setusers] = useState([]);
+    useEffect(() => {
+      fetch("http://localhost:5000/admin/users")
+        .then((res) => res.json())
+        .then((data) => {
+          setusers(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching products:', error);
+          toast.error('Failed to fetch products');
+        });
+    }, [users]);
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Users</h1>
@@ -60,7 +54,7 @@ export default function AdminUsers() {
                     {user.status}
                   </Badge>
                 </TableCell>
-                <TableCell>{user.joinDate}</TableCell>
+                <TableCell>{user.createdAt.slice(0,10)}</TableCell>
                 <TableCell className="text-right">
                   <Button variant="ghost" size="icon">
                     {user.status === 'active' ? (

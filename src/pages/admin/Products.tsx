@@ -8,35 +8,26 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Edit, Plus, Trash2 } from 'lucide-react';
-
-const products = [
-  {
-    id: '1',
-    name: 'Classic White T-Shirt',
-    price: 29.99,
-    stock: 150,
-    category: 'Tops',
-  },
-  {
-    id: '2',
-    name: 'Slim Fit Jeans',
-    price: 79.99,
-    stock: 85,
-    category: 'Bottoms',
-  },
-  // Add more products as needed
-];
+import AddProductModal from '../modals/AddProductModal';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 export default function AdminProducts() {
+  const [products, setproducts] = useState([]);
+    useEffect(() => {
+      fetch("http://localhost:5000/admin/products")
+        .then((res) => res.json())
+        .then((data) => {
+          setproducts(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching products:', error);
+          toast.error('Failed to fetch products');
+        });
+    }, [products]);
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Products</h1>
-        <Button>
-          <Plus className="mr-2 h-4 w-4" /> Add Product
-        </Button>
-      </div>
-
+      <AddProductModal />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -49,13 +40,13 @@ export default function AdminProducts() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map((product) => (
+            {products?.map((product) => (
               <TableRow key={product.id}>
                 <TableCell>{product.name}</TableCell>
                 <TableCell>{product.category}</TableCell>
-                <TableCell>${product.price.toFixed(2)}</TableCell>
+                <TableCell>${product.price}</TableCell>
                 <TableCell>{product.stock}</TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-right flex gap-5">
                   <Button variant="ghost" size="icon">
                     <Edit className="h-4 w-4" />
                   </Button>

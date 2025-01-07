@@ -1,0 +1,18 @@
+[
+    {
+      "id": "#ORD-001",
+      "email":"darkwed72378@gmail.com",
+      "date": "2024-03-15",
+      "total": 129.99,
+      "status": "processing",
+      "quantity": 3
+    },
+    {
+      "id": "#ORD-002",
+      "email":"darkwed72378@gmail.com",
+      "date": "2024-03-10",
+      "total": 259.99,
+      "status": "delivered",
+      "quantity": 2
+    }
+]

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useState, useEffect } from "react";
-import auth from "../firebase/firebase.config.ts";
+import auth from "../firebase/firebase.config.js";
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, sendPasswordResetEmail, User } from "firebase/auth";
 import useAxiosPublic from "@/hooks/useAxiosPublic.tsx";
 import { toast } from "sonner";
@@ -133,7 +133,6 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     email_verify,
     sendEmailVerification
   };
-
   return <AuthContext.Provider value={info}>{children}</AuthContext.Provider>;
 };
 

@@ -84,11 +84,11 @@ const Header = () => {
                                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem>
-                                        <Link to="/profile">
+                                        <Link to="dashboard/profile">
                                             <User className="h-5 w-5 mr-2" /> Profile
                                         </Link>
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => navigate(`${user?.role === "user" ? "/dashboard" : ""}${user?.role === "admin" ? "/admin" : ""}`)}>
+                                    <DropdownMenuItem onClick={() => navigate(`${user?.role === "user" ? "/dashboard" : "/admin"}`)}>
                                         <LayoutDashboard className="h-5 w-5 mr-2" /> Dashboard
                                     </DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => handleLogout()}>

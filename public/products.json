@@ -1,0 +1,20 @@
+[
+    {
+      "id": "1",
+      "image": "https://images.unsplash.com/photo-1612838320302-4b3b3b3b3b3b",
+      "name": "Classic White T-Shirt",
+      "price": 29.99,
+      "stock": 150,
+      "category": "Tops",
+      "description": "This is a classic white t-shirt made from 100% cotton."
+    },
+    {
+      "id": "2",
+      "image": "https://images.unsplash.com/photo-1612838320302-4b3b3b3b3b3b",
+      "name": "Slim Fit Jeans",
+      "price": 79.99,
+      "stock": 85,
+      "category": "Bottoms",
+      "description": "This is a classic white t-shirt made from 100% cotton."
+    }
+  ]

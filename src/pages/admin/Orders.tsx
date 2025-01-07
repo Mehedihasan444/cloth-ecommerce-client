@@ -8,26 +8,22 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-
-const orders = [
-  {
-    id: '#ORD-001',
-    customer: 'John Doe',
-    date: '2024-03-15',
-    total: 129.99,
-    status: 'processing',
-  },
-  {
-    id: '#ORD-002',
-    customer: 'Jane Smith',
-    date: '2024-03-14',
-    total: 259.99,
-    status: 'completed',
-  },
-  // Add more orders as needed
-];
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 export default function AdminOrders() {
+  const [orders, setorders] = useState([]);
+    useEffect(() => {
+      fetch("http://localhost:5000/orders")
+        .then((res) => res.json())
+        .then((data) => {
+          setorders(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching products:', error);
+          toast.error('Failed to fetch products');
+        });
+    }, [orders]);
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Orders</h1>

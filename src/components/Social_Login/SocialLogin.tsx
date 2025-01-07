@@ -2,9 +2,10 @@ import { AuthContext } from "@/AuthProvider/Authprovider";
 import { useContext } from "react";
 import { toast } from "sonner";
 import google from "../../assets/google.svg";
+import { useNavigate } from "react-router-dom";
 
 const SocialLogin = () => {
-
+  const navigate  = useNavigate();
   const auth = useContext(AuthContext);
   if (!auth) throw new Error('Auth context is required');
   const { signIn_Google } = auth;
@@ -16,6 +17,8 @@ const SocialLogin = () => {
     await signIn_Google()
       .then((result) => {
         console.log(result);
+        toast.success('Logged in successfully');
+        navigate('/');
       })
       .catch((error) => {
         console.log(error);
