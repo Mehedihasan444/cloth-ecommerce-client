@@ -44,12 +44,6 @@ export default function Cart() {
   }, [user?.email, axiosPublic]);
 
 
-  // const subtotal = cartItems?.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  // const shipping = 5.99;
-  // // const tax = subtotal * 0.08;
-
-
-
   const removeItem = async (id: string) => {
     try {
       await axiosPublic.delete(`/cart/${id}`);
@@ -62,7 +56,7 @@ export default function Cart() {
 
   const updateQuantity = async (id: string, quantity: number) => {
     try {
-      await axiosPublic.patch(`/cart/${id}`, { quantity });
+      await axiosPublic.put(`/cart/${id}`, { quantity });
       const updatedCart = cartItems.map((item) => {
         if (item._id === id) {
           return { ...item, quantity };
@@ -81,7 +75,7 @@ export default function Cart() {
       navigate('/login');
       return;
     }
-    toast.success('Order placed successfully!');
+    navigate('/checkout');
   };
 
   if (cartItems.length === 0) {

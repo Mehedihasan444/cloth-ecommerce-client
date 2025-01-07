@@ -20,6 +20,7 @@ import { FAQ } from './pages/FAQ';
 import { useContext } from 'react';
 import AuthProvider, { AuthContext } from './AuthProvider/Authprovider';
 import Dashboard from './components/Dashboard';
+import CheckoutPage from './pages/Checkout';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const location = useLocation()
@@ -52,6 +53,7 @@ function App() {
             <Route path="/faq" element={<Layout><FAQ /></Layout>} />
             <Route path="/shop" element={<Layout><Shop /></Layout>} />
             <Route path="/cart" element={<Layout> <Cart /></Layout>} />
+            <Route path="/checkout" element={<Layout> <CheckoutPage /></Layout>} />
             <Route path="/login" element={<Layout><Login /></Layout>} />
             <Route path="/register" element={<Layout><Register /></Layout>} />
 
