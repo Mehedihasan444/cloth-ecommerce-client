@@ -13,6 +13,7 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '@/AuthProvider/Authprovider';
 import { toast } from 'sonner';
 import useAxiosPublic from '@/hooks/useAxiosPublic';
+import { Star } from 'lucide-react';
 
 const products = [
   {
@@ -20,6 +21,7 @@ const products = [
     name: 'Classic White T-Shirt',
     description: 'Essential cotton t-shirt in crisp white',
     price: 29.99,
+    rating: 4,
     image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format',
     category: 'tops',
   },
@@ -28,6 +30,7 @@ const products = [
     name: 'Slim Fit Jeans',
     description: 'Dark wash denim with perfect stretch',
     price: 79.99,
+    rating: 3,
     image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format',
     category: 'bottoms',
   },
@@ -36,6 +39,7 @@ const products = [
     name: 'Wool Blend Coat',
     description: 'Elegant winter coat in charcoal grey',
     price: 199.99,
+    rating: 5,
     image: 'https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?w=500&auto=format',
     category: 'outerwear',
   },
@@ -44,6 +48,7 @@ const products = [
     name: 'Silk Blouse',
     description: 'Luxurious silk blouse in soft pink',
     price: 89.99,
+    rating: 4,
     image: 'https://images.unsplash.com/photo-1551799517-eb8f03cb5e6a?w=500&auto=format',
     category: 'tops',
   },
@@ -52,6 +57,7 @@ const products = [
     name: 'Leather Jacket',
     description: 'Classic black leather motorcycle jacket',
     price: 299.99,
+    rating: 4.5,
     image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format',
     category: 'outerwear',
   },
@@ -60,6 +66,7 @@ const products = [
     name: 'Pleated Skirt',
     description: 'Elegant pleated midi skirt',
     price: 69.99,
+    rating: 4,
     image: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=500&auto=format',
     category: 'bottoms',
   },
@@ -141,9 +148,14 @@ export default function Shop() {
             </CardHeader>
             <CardContent className="p-6">
               <CardTitle>{product.name}</CardTitle>
-              <CardDescription className="mt-2">
+              <CardDescription className="my-2">
                 {product.description}
               </CardDescription>
+              <div className="flex items-center ">
+                {[...Array(Math.round(product?.rating))]?.map((_, i) => (
+                  <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                ))}
+              </div>
               <p className="text-lg font-semibold mt-2">
                 ${product.price.toFixed(2)}
               </p>

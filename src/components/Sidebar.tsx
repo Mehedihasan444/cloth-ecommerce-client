@@ -1,15 +1,12 @@
 import { useContext } from 'react';
 import {
   Home,
-  PawPrint,
-  Stethoscope,
-  Pill,
   ShoppingBag,
-  Heart,
-  CreditCard,
-  Settings,
+  User,
   LogOut,
-  LucideIcon
+  LucideIcon,
+  BoxIcon,
+  User2
 } from 'lucide-react';
 import { AuthContext } from '../AuthProvider/Authprovider';
 import { Link, useNavigate } from 'react-router-dom';
@@ -23,23 +20,18 @@ interface MenuItem {
 
 
 const ADMIN_MENU: MenuItem[] = [
-  { icon: Home, label: 'Dashboard', href: '/dashboard/admin' },
-  { icon: PawPrint, label: 'Users', href: '/dashboard/admin/users' },
-  { icon: Stethoscope, label: 'Consultations', href: '/dashboard/admin/consultations' },
-  { icon: Pill, label: 'Medicine', href: '/dashboard/admin/medicine' },
-  { icon: ShoppingBag, label: 'Pet Supplies', href: '/dashboard/admin/supplies' },
-  { icon: Heart, label: 'Adoptions', href: '/dashboard/admin/adoptions' },
-  { icon: CreditCard, label: 'Payments', href: '/dashboard/admin/payments' },
-  // { icon: Settings, label: 'Settings', href: '/dashboard/admin/settings' }
+  { icon: Home, label: 'Dashboard', href: '/admin' },
+  { icon: User, label: 'Users', href: '/admin/users' },
+  { icon: BoxIcon, label: 'Products', href: '/admin/products' },
+  { icon: ShoppingBag, label: 'Orders', href: '/admin/orders' },
+
 ];
 
 const USER_MENU: MenuItem[] = [
   { icon: Home, label: 'Dashboard', href: '/dashboard' },
-  { icon: PawPrint, label: 'My Pets', href: '/dashboard/pets' },
-  { icon: Stethoscope, label: 'Book Consultation', href: '/dashboard/book' },
-  { icon: ShoppingBag, label: 'Orders', href: '/dashboard/shop' },
-  { icon: Heart, label: 'Adopt', href: '/dashboard/adopt' },
-  { icon: Settings, label: 'Settings', href: '/dashboard/settings' }
+  { icon: ShoppingBag, label: 'Orders', href: '/dashboard/orders' },
+  { icon: User2, label: 'Profile', href: '/dashboard/profile' },
+  // { icon: Settings, label: 'Settings', href: '/dashboard/settings' }
 ];
 
 export default function Sidebar() {
@@ -63,8 +55,8 @@ export default function Sidebar() {
     <div className="h-screen w-64 bg-white border-r border-gray-200 ">
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-center h-16 border-b border-gray-200">
-          <Link to="/" className="text-xl font-bold text-indigo-600">PawCare</Link>
-          {/* <h1 className="text-xl font-bold text-indigo-600">PawCare</h1> */}
+          <Link to="/" className="text-xl font-bold text-indigo-600">TRIO MARK CLOTHING</Link>
+  
         </div>
 
         <nav className="flex-1 overflow-y-auto py-4">
