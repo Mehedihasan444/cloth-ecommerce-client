@@ -99,7 +99,7 @@ export default function AddProductModal() {
                             />
                         </div>
                         <div className="grid gap-2">
-                            <Label htmlFor="category">Category</Label>
+                            {/* <Label htmlFor="category">Category</Label>
                             <Input
                                 id="category"
                                 name="category"
@@ -107,8 +107,8 @@ export default function AddProductModal() {
                                 placeholder="Enter category"
                                 value={formData.category}
                                 onChange={handleInputChange}
-                            />
-                            {/* <Select value={category} onValueChange={setCategory}>
+                            /> */}
+                            <Select value={category} onValueChange={setCategory}>
                                 <SelectTrigger>
                                     <SelectValue placeholder="Category" />
                                 </SelectTrigger>
@@ -119,7 +119,7 @@ export default function AddProductModal() {
                                     <SelectItem value="narrow-pants">Narrow Pants</SelectItem>
                                     <SelectItem value="cargo-pants">Cargo Pants</SelectItem>
                                 </SelectContent>
-                            </Select> */}
+                            </Select>
                         </div>
                         <div className="flex gap-2 justify-between items-center">
                             <div className="flex-1">
