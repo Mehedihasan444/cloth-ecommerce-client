@@ -6,6 +6,7 @@ export interface TProduct {
     rating: number;
     image: string;
     category: string;
+    stock: number;
 }
 
 export interface TOrder {

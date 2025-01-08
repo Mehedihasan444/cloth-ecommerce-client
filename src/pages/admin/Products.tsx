@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import Swal from 'sweetalert2'
 import {
   Table,
@@ -8,16 +7,17 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Edit, Plus, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import AddProductModal from '../modals/AddProductModal';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import useAxiosPublic from '@/hooks/useAxiosPublic';
 import UpdateProductModal from '../modals/UpdateProductModal';
+import { TProduct } from '@/Interface';
 
 export default function AdminProducts() {
   const axios=useAxiosPublic();
-  const [products, setproducts] = useState([]);
+  const [products, setproducts] = useState<TProduct[]|[]>([]);
     useEffect(() => {
       fetch("http://localhost:5000/admin/products")
         .then((res) => res.json())
@@ -30,7 +30,7 @@ export default function AdminProducts() {
         });
     }, [products]);
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (id:string) => {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -81,7 +81,7 @@ export default function AdminProducts() {
           </TableHeader>
           <TableBody>
             {products?.map((product) => (
-              <TableRow key={product.id}>
+              <TableRow key={product._id}>
                 <TableCell>{product.name}</TableCell>
                 <TableCell>{product.category}</TableCell>
                 <TableCell>${product.price}</TableCell>
