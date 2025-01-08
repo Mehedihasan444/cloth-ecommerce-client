@@ -4,6 +4,7 @@ import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { Button } from "@/components/ui/button";
 import { Edit, ImagePlus, Plus } from "lucide-react";
 import { toast } from "sonner";
+import { Select, SelectValue, SelectItem } from "@/components/ui/select";
 import { uploadImage } from "../../lib/uploadimage";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -19,6 +20,7 @@ interface ProductFormData {
 }
 export default function UpdateProductModal({ Product }: { Product: string }) {
     const [open, setOpen] = useState(false);
+    const [category, setCategory] = useState<string>("");
     const [loading, setLoading] = useState(false);
     const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -57,6 +59,7 @@ export default function UpdateProductModal({ Product }: { Product: string }) {
 
             if (imageFile) {
                 const uploadResult = await uploadImage(imageFile);
+                console.log("image",uploadResult)
                 if (uploadResult.success) {
 
                     const updateData = {
@@ -130,6 +133,16 @@ export default function UpdateProductModal({ Product }: { Product: string }) {
                                 value={formData.category}
                                 onChange={handleInputChange}
                             />
+                        {/* <Select value={category} onValueChange={setCategory}>
+                            <SelectValue placeholder="Category" />
+                            <Select>
+                            <SelectItem value="all">All Categories</SelectItem>
+                            <SelectItem value="basic-joggers">Basic Joggers</SelectItem>
+                            <SelectItem value="polo-tshirt">Polo T-shirt</SelectItem>
+                            <SelectItem value="narrow-pants">Narrow Pants</SelectItem>
+                            <SelectItem value="cargo-pants">Cargo Pants</SelectItem>
+                            </Select>
+                        </Select> */}
                         </div>
                         <div className="flex gap-2 justify-between items-center">
                             <div className="flex-1">
@@ -191,7 +204,7 @@ export default function UpdateProductModal({ Product }: { Product: string }) {
                         <Button type="button" variant="outline" onClick={() => setOpen(false)}>
                             Cancel
                         </Button>
-                        <Button type="submit">Add Product</Button>
+                        <Button type="submit">Update Product</Button>
                     </div>
                 </form>
             </DialogContent>

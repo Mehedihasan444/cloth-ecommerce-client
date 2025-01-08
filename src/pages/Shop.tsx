@@ -132,9 +132,10 @@ export default function Shop() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Categories</SelectItem>
-              <SelectItem value="tops">Tops</SelectItem>
-              <SelectItem value="bottoms">Bottoms</SelectItem>
-              <SelectItem value="outerwear">Outerwear</SelectItem>
+              <SelectItem value="basic-joggers">Basic Joggers</SelectItem>
+              <SelectItem value="polo-tshirt">Polo T-shirt</SelectItem>
+              <SelectItem value="narrow-pants">Narrow Pants</SelectItem>
+              <SelectItem value="cargo-pants">Cargo Pants</SelectItem>
             </SelectContent>
           </Select>
           <Select value={sort} onValueChange={setSort}>
