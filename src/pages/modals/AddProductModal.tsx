@@ -12,7 +12,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 export default function AddProductModal() {
     const [open, setOpen] = useState(false);
-    const [category, setCategory] = useState<string>("");
     const [imageFile, setImageFile] = useState<File | null>(null);
     const axiosPublic = useAxiosPublic();
     interface ProductFormData {
@@ -121,6 +120,7 @@ export default function AddProductModal() {
                                     <SelectItem value="Basic Joggers">Basic Joggers</SelectItem>
                                     <SelectItem value="Polo T-shirt">Polo T-shirt</SelectItem>
                                     <SelectItem value="Narrow Pants">Narrow Pants</SelectItem>
+                                    <SelectItem value="Hoodies">Hoodies</SelectItem>
                                     <SelectItem value="Cargo Pants">Cargo Pants</SelectItem>
                                 </SelectContent>
                             </Select>

@@ -144,6 +144,7 @@ export default function UpdateProductModal({ Product }: { Product: TProduct }) {
                                     <SelectItem value="Basic Joggers">Basic Joggers</SelectItem>
                                     <SelectItem value="Polo T-shirt">Polo T-shirt</SelectItem>
                                     <SelectItem value="Narrow Pants">Narrow Pants</SelectItem>
+                                    <SelectItem value="Hoodies">Hoodies</SelectItem>
                                     <SelectItem value="Cargo Pants">Cargo Pants</SelectItem>
                                 </SelectContent>
                             </Select>
