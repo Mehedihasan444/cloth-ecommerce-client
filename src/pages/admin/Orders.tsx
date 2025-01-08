@@ -11,9 +11,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { TOrder } from '@/Interface';
+import useAxiosPublic from '@/hooks/useAxiosPublic';
 
 export default function AdminOrders() {
   const [orders, setorders] = useState<TOrder[] | []>([]);
+  const axiosPublic = useAxiosPublic();
   useEffect(() => {
     fetch("http://localhost:5000/orders")
       .then((res) => res.json())
@@ -25,6 +27,24 @@ export default function AdminOrders() {
         toast.error('Failed to fetch products');
       });
   }, [orders]);
+
+
+
+  const updateStatus = async (id: string, status: string) => {
+    try {
+      const res = await axiosPublic.put(`/orders/${id}`, { status });
+      console.log(res);
+      if (res.data.modifiedCount > 0) {
+        toast.success("Status updated successfully");
+      } else {
+        toast.error("Failed to update status");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to update status");
+    }
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Orders</h1>
@@ -54,7 +74,7 @@ export default function AdminOrders() {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <Select defaultValue={order.status}>
+                  <Select defaultValue={order.status} onValueChange={(value) => updateStatus(order._id, value)}>
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Update status" />
                     </SelectTrigger>
