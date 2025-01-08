@@ -32,7 +32,7 @@ const Header = () => {
             }
             try {
                 const res = await axiosPublic.get(`/cart/${user?.email}`);
-                console.log(res.data);
+          
                 setCartItems(res.data);
             } catch (error) {
                 console.error("Error fetching data:", error);
