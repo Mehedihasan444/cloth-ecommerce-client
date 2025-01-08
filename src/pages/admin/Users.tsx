@@ -56,7 +56,7 @@ export default function AdminUsers() {
                 </TableCell>
                 <TableCell>{user.createdAt.slice(0,10)}</TableCell>
                 <TableCell className="text-right">
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" >
                     {user.status === 'active' ? (
                       <Ban className="h-4 w-4" />
                     ) : (

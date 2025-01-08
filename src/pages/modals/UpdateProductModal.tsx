@@ -14,6 +14,7 @@ interface ProductFormData {
     name: string;
     image: File | null;
     price: number;
+    discount: number;
     stock: number;
     category: string;
     description: string;
@@ -23,7 +24,6 @@ export default function UpdateProductModal({ Product }: { Product: string }) {
     const [category, setCategory] = useState<string>("");
     const [loading, setLoading] = useState(false);
     const [imageFile, setImageFile] = useState<File | null>(null);
-
     const axiosPublic = useAxiosPublic();
 
     const [formData, setFormData] = useState<ProductFormData>(Product ? {
@@ -31,15 +31,17 @@ export default function UpdateProductModal({ Product }: { Product: string }) {
         image: Product.image ?? null,
         price: Product.price ?? 0,
         stock: Product.stock ? Number(Product.stock) : 0,
+        discount: Product.discount ? Number(Product.discount) : 0,
         category: Product.category ?? "",
-        description: Product.description ?? "",
+        description: Product.description ?? ""
     } : {
         name: "",
         image: null,
         price: 0,
+        discount: 0,
         stock: 0,
         category: "",
-        description: "",
+        description: ""
     });
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -145,6 +147,17 @@ export default function UpdateProductModal({ Product }: { Product: string }) {
                                     <SelectItem value="Cargo Pants">Cargo Pants</SelectItem>
                                 </SelectContent>
                             </Select>
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="discount">Discount</Label>
+                            <Input
+                                id="discount"
+                                name="discount"
+                                className="p-2 border bg-transparent"
+                                placeholder="Enter Discount nampercentage"
+                                value={formData.discount}
+                                onChange={handleInputChange}
+                            />
                         </div>
                         <div className="flex gap-2 justify-between items-center">
                             <div className="flex-1">

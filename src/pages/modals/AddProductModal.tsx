@@ -18,6 +18,7 @@ export default function AddProductModal() {
         name: string;
         image: File | null;
         price: number;
+        discount: number;
         stock: number;
         category: string;
         description: string;
@@ -26,6 +27,7 @@ export default function AddProductModal() {
         name: "",
         image: null,
         price: 0,
+        discount:0,
         stock: 0,
         category: "",
         description: ""
@@ -109,18 +111,29 @@ export default function AddProductModal() {
                                 value={formData.category}
                                 onChange={handleInputChange}
                             /> */}
-                            <Select value={category} onValueChange={setCategory}>
+                            <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
                                 <SelectTrigger>
                                     <SelectValue placeholder="Category" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value="all">All Categories</SelectItem>
-                                    <SelectItem value="basic-joggers">Basic Joggers</SelectItem>
-                                    <SelectItem value="polo-tshirt">Polo T-shirt</SelectItem>
-                                    <SelectItem value="narrow-pants">Narrow Pants</SelectItem>
-                                    <SelectItem value="cargo-pants">Cargo Pants</SelectItem>
+                                    <SelectItem value="Basic Joggers">Basic Joggers</SelectItem>
+                                    <SelectItem value="Polo T-shirt">Polo T-shirt</SelectItem>
+                                    <SelectItem value="Narrow Pants">Narrow Pants</SelectItem>
+                                    <SelectItem value="Cargo Pants">Cargo Pants</SelectItem>
                                 </SelectContent>
                             </Select>
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="discount">Discount</Label>
+                            <Input
+                                id="discount"
+                                name="discount"
+                                className="p-2 border bg-transparent"
+                                placeholder="Enter Discount Price"
+                                value={formData.discount}
+                                onChange={handleInputChange}
+                            />
                         </div>
                         <div className="flex gap-2 justify-between items-center">
                             <div className="flex-1">

@@ -3,6 +3,7 @@ export interface TProduct {
     name: string;
     description: string;
     price: number;
+    discount:number,
     rating: number;
     image: string;
     category: string;

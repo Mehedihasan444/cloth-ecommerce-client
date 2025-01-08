@@ -39,7 +39,9 @@ const ProductCard = ({ product, handleCart }: Props) => {
                     ))}
                 </div>
                 <p className="text-lg font-semibold mt-2">
-                    ${product?.price}
+                    {
+                        product?.discount>0 ? <p className='flex gap-4'> <span className='line-through text-gray-400'>${product?.price} </span> ${product?.price - (product?.price*product?.discount)/100} </p>:<p>${product?.price}</p>
+                    }
                 </p>
             </CardContent>
             <CardFooter>

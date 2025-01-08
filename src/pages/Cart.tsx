@@ -10,6 +10,7 @@ interface TCart {
   name: string;
   image: string;
   price: number;
+  discount: number;
   email: string;
   quantity: number;
 }
@@ -22,7 +23,8 @@ export default function Cart() {
   const axiosPublic = useAxiosPublic();
   const user = authContext ? authContext.user : null;
 
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = cartItems.reduce((sum, item) => sum + (item.discount > 0 ? (item.price - (item.price * item.discount) / 100) : item.price) * item.quantity, 0);
+
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -110,12 +112,16 @@ export default function Cart() {
               <div className="flex-1">
                 <h3 className="font-semibold">{item.name}</h3>
                 <p className="text-muted-foreground">Size: {item.quantity}</p>
-                <p className="font-medium">${item.price}</p>
+                <p className="font-medium">
+                {
+                  item.discount>0 ? <p className='flex gap-4'> <span className='line-through text-gray-400'>${item.price} </span> ${item.price - (item.price*item.discount)/100} </p>:<p>${item.price}</p>
+                }
+                </p>
               </div>
               <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
-                  size="icon"
+                  
                   onClick={() => updateQuantity(item._id, Math.max(1, item.quantity - 1))}
                 >
                   <Minus className="h-4 w-4" />
@@ -123,14 +129,14 @@ export default function Cart() {
                 <span className="w-8 text-center">{item.quantity}</span>
                 <Button
                   variant="outline"
-                  size="icon"
+                  
                   onClick={() => updateQuantity(item._id, item.quantity + 1)}
                 >
                   <Plus className="h-4 w-4" />
                 </Button>
                 <Button
                   variant="outline"
-                  size="icon"
+                  
                   className="ml-2"
                   onClick={() => removeItem(item._id)}
                 >
