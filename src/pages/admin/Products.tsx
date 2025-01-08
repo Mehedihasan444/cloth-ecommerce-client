@@ -75,6 +75,7 @@ export default function AdminProducts() {
               <TableHead>Name</TableHead>
               <TableHead>Category</TableHead>
               <TableHead>Price</TableHead>
+              <TableHead>Discount</TableHead>
               <TableHead>Stock</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
@@ -85,6 +86,7 @@ export default function AdminProducts() {
                 <TableCell>{product.name}</TableCell>
                 <TableCell>{product.category}</TableCell>
                 <TableCell>${product.price}</TableCell>
+                <TableCell>{product.discount}%</TableCell>
                 <TableCell>{product.stock}</TableCell>
                 <TableCell className="text-right flex gap-5">
                     <UpdateProductModal Product={product} />

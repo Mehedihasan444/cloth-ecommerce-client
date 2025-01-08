@@ -8,6 +8,7 @@ interface CartItemProps {
   name: string;
   image: string;
   price: number;
+  discount:number;
   email: string;
   quantity: number;
 }
@@ -15,6 +16,7 @@ const CartItem: React.FC<CartItemProps> = ({
   _id,
   name,
   price,
+  discount,
   quantity = 1,
   image,
 
@@ -51,7 +53,11 @@ const CartItem: React.FC<CartItemProps> = ({
       <img src={image} alt={name} className="w-24 h-24 object-cover rounded-md" />
       <div className="flex-1">
         <h3 className="font-semibold">{name}</h3>
-        <p className="text-gray-600">${price}</p>
+        <p className="text-gray-600">
+        {
+          discount>0 ? <p className='flex gap-4'> <span className='line-through text-gray-400'>${price} </span> ${price - (price*discount)/100} </p>:<p>${price}</p>
+        }
+        </p>
         <div className="flex items-center gap-2 mt-2">
           <button
             onClick={() => onUpdateQuantity(_id, quantity - 1)}
