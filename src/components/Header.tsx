@@ -77,10 +77,10 @@ const Header = () => {
                         </Link>
                         {user ? <Link to=''>
                             <DropdownMenu>
-                                <DropdownMenuTrigger>
-                                    <Avatar className=''>
-                                        <AvatarImage src={user?.image} />
-                                        <AvatarFallback>{user?.name}</AvatarFallback>
+                                <DropdownMenuTrigger className='bg-transparent  rounded-full p-0 flex items-center justify-center'>
+                                    <Avatar className=' '>
+                                        <AvatarImage src={user?.image} className=''/>
+                                        <AvatarFallback className='text-xs'>{user?.name}</AvatarFallback>
                                     </Avatar></DropdownMenuTrigger>
                                 <DropdownMenuContent className="w-40">
                                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
