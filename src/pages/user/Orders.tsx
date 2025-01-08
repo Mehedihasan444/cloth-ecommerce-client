@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import {
   Table,
   TableBody,
@@ -9,16 +9,22 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Eye } from 'lucide-react';
+import { Eye, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { TOrder } from '@/Interface';
+import Swal from 'sweetalert2';
+import useAxiosPublic from '@/hooks/useAxiosPublic';
+import { AuthContext } from '@/AuthProvider/Authprovider';
 
 
 
 export default function UserOrders() {
   const [orders, setorders] = useState<TOrder[] | []>([]);
+  const authContext = useContext(AuthContext);
+  const user = authContext ? authContext.user : null;
+  const axios=useAxiosPublic();
     useEffect(() => {
-      fetch("http://localhost:5000/orders")
+      fetch(`http://localhost:5000/orders/${user?.email}`)
         .then((res) => res.json())
         .then((data) => {
           setorders(data);
@@ -28,6 +34,41 @@ export default function UserOrders() {
           toast.error('Failed to fetch products');
         });
     }, [orders]);
+  const handleDelete = async (id) => {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const callBackFunction = async () => {
+              await axios
+                .delete(`/orders/${id}`)
+                .then((res) => {
+                  console.log(res.data);
+                  if (res.data.deletedCount > 0) {
+                    Swal.fire({
+                      title: "Deleted!",
+                      text: "Your file has been deleted.",
+                      icon: "success",
+                    });
+                  } else {
+                    Swal.fire({
+                      title: "Error!",
+                      text: "Something went wrong.",
+                      icon: "error",
+                    });
+                  }
+                });
+            };
+            callBackFunction();
+          }
+        });
+      };
   return (
     <div className=" mx-auto px-4 py-8l">
       <h1 className="text-3xl font-bold mb-8">My Orders</h1>
@@ -59,8 +100,8 @@ export default function UserOrders() {
                   </Badge>
                 </TableCell>
                 <TableCell className="text-right">
-                  <Button variant="ghost" >
-                    <Eye className="h-4 w-4" />
+                  <Button onClick={()=>handleDelete(order._id)} variant="ghost" >
+                    <Trash2 className="h-4 w-4" />
                   </Button>
                 </TableCell>
               </TableRow>

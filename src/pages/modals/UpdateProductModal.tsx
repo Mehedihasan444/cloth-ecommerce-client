@@ -4,7 +4,7 @@ import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { Button } from "@/components/ui/button";
 import { Edit, ImagePlus, Plus } from "lucide-react";
 import { toast } from "sonner";
-import { Select, SelectValue, SelectItem } from "@/components/ui/select";
+import { Select, SelectValue, SelectItem, SelectTrigger, SelectContent } from "@/components/ui/select";
 import { uploadImage } from "../../lib/uploadimage";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -31,7 +31,7 @@ export default function UpdateProductModal({ Product }: { Product: string }) {
         image: Product.image ?? null,
         price: Product.price ?? 0,
         stock: Product.stock ? Number(Product.stock) : 0,
-        category: Product.category as 'polo' | 'Jogers' ?? "",
+        category: Product.category ?? "",
         description: Product.description ?? "",
     } : {
         name: "",
@@ -124,7 +124,7 @@ export default function UpdateProductModal({ Product }: { Product: string }) {
                             />
                         </div>
                         <div className="grid gap-2">
-                            <Label htmlFor="category">Category</Label>
+                            {/* <Label htmlFor="category">Category</Label>
                             <Input
                                 id="category"
                                 name="category"
@@ -132,17 +132,19 @@ export default function UpdateProductModal({ Product }: { Product: string }) {
                                 placeholder="Enter category"
                                 value={formData.category}
                                 onChange={handleInputChange}
-                            />
-                        {/* <Select value={category} onValueChange={setCategory}>
-                            <SelectValue placeholder="Category" />
-                            <Select>
-                            <SelectItem value="all">All Categories</SelectItem>
-                            <SelectItem value="basic-joggers">Basic Joggers</SelectItem>
-                            <SelectItem value="polo-tshirt">Polo T-shirt</SelectItem>
-                            <SelectItem value="narrow-pants">Narrow Pants</SelectItem>
-                            <SelectItem value="cargo-pants">Cargo Pants</SelectItem>
+                            /> */}
+                        <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Category" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="all">All Categories</SelectItem>
+                                    <SelectItem value="Basic Joggers">Basic Joggers</SelectItem>
+                                    <SelectItem value="Polo T-shirt">Polo T-shirt</SelectItem>
+                                    <SelectItem value="Narrow Pants">Narrow Pants</SelectItem>
+                                    <SelectItem value="Cargo Pants">Cargo Pants</SelectItem>
+                                </SelectContent>
                             </Select>
-                        </Select> */}
                         </div>
                         <div className="flex gap-2 justify-between items-center">
                             <div className="flex-1">
