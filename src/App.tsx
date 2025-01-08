@@ -22,6 +22,8 @@ import AuthProvider, { AuthContext } from './AuthProvider/Authprovider';
 import Dashboard from './components/Dashboard';
 import CheckoutPage from './pages/Checkout';
 import ProductDetails from './pages/ProductDetails';
+import PaymentSuccess from './pages/PaymentSuccess';
+import PaymentFailed from './pages/PaymentFailed';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const location = useLocation()
@@ -58,6 +60,8 @@ function App() {
             <Route path="/checkout" element={<Layout> <CheckoutPage /></Layout>} />
             <Route path="/login" element={<Layout><Login /></Layout>} />
             <Route path="/register" element={<Layout><Register /></Layout>} />
+            <Route path="/payment-complete/:tranId" element={<PaymentSuccess />} />
+            <Route path="/payment-failed/:tranId" element={<PaymentFailed />} />
 
             {/* Admin Routes */}
             <Route path="/admin" element={<PrivateRoute ><Dashboard /></PrivateRoute>}>

@@ -62,7 +62,7 @@ const ProductDetails = () => {
                 <div>
                     <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
                     <p className="text-lg text-muted-foreground mb-4">{product.description}</p>
-                    <div className="text-2xl font-bold mb-4">${product.price.toFixed(2)}</div>
+                    <div className="text-2xl font-bold mb-4">${product.price}</div>
                     <Button onClick={() => handleCart(product)}>Add to Cart</Button>
                 </div>
             </div>
