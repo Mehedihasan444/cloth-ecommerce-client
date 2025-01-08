@@ -2,18 +2,18 @@ import { Link, useParams } from "react-router-dom";
 
 
 const PaymentSuccess = () => {
-    const {tranId}=useParams()
+    const { tranId } = useParams()
 
     return (
-        <div className="flex  justify-center items-center h-screen w-full">
-            <div className="w-full">
+        <div className="flex flex-col  justify-center items-center min-h-screen w-screen">
+        
 
-            <h1 className="text-xl font-bold">Payment complete: {tranId}</h1>
-            <Link to="/" className="">
+                <h1 className="text-xl font-bold">Payment complete: {tranId}</h1>
+                <Link to="/" className="">
 
-            <span className="underline text-blue-500">Back to Home</span>
-            </Link>
-            </div>
+                    <span className="underline text-blue-500">Back to Home</span>
+                </Link>
+          
         </div>
     );
 };

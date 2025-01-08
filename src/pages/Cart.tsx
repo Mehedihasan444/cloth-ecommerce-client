@@ -115,7 +115,7 @@ export default function Cart() {
               <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
-                  size="icon"
+                  
                   onClick={() => updateQuantity(item._id, Math.max(1, item.quantity - 1))}
                 >
                   <Minus className="h-4 w-4" />
@@ -123,14 +123,14 @@ export default function Cart() {
                 <span className="w-8 text-center">{item.quantity}</span>
                 <Button
                   variant="outline"
-                  size="icon"
+                  
                   onClick={() => updateQuantity(item._id, item.quantity + 1)}
                 >
                   <Plus className="h-4 w-4" />
                 </Button>
                 <Button
                   variant="outline"
-                  size="icon"
+                  
                   className="ml-2"
                   onClick={() => removeItem(item._id)}
                 >
