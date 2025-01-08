@@ -15,20 +15,20 @@ const CartSummary: React.FC<CartSummaryProps> = ({ subtotal, shipping, tax }) =>
       <div className="space-y-2 mb-4">
         <div className="flex justify-between">
           <span>Subtotal</span>
-          <span>${subtotal.toFixed(2)}</span>
+          <span>${subtotal}</span>
         </div>
         <div className="flex justify-between">
           <span>Shipping</span>
-          <span>${shipping.toFixed(2)}</span>
+          <span>${shipping}</span>
         </div>
         <div className="flex justify-between">
           <span>Tax</span>
-          <span>${tax.toFixed(2)}</span>
+          <span>${tax}</span>
         </div>
         <div className="border-t pt-2 mt-2">
           <div className="flex justify-between font-bold">
             <span>Total</span>
-            <span>${total.toFixed(2)}</span>
+            <span>${total}</span>
           </div>
         </div>
       </div>

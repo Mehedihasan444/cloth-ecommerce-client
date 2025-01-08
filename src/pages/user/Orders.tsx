@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import {
   Table,
   TableBody,
@@ -11,8 +11,12 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Eye } from 'lucide-react';
 import { toast } from 'sonner';
+import { TOrder } from '@/Interface';
+
+
+
 export default function UserOrders() {
-  const [orders, setorders] = useState([]);
+  const [orders, setorders] = useState<TOrder[] | []>([]);
     useEffect(() => {
       fetch("http://localhost:5000/orders")
         .then((res) => res.json())
@@ -42,18 +46,20 @@ export default function UserOrders() {
           </TableHeader>
           <TableBody>
             {orders.map((order) => (
-              <TableRow key={order.id}>
-                <TableCell>{order.id}</TableCell>
-                <TableCell>{order.date}</TableCell>
-                <TableCell>{order.items} items</TableCell>
-                <TableCell>${order.total.toFixed(2)}</TableCell>
+              <TableRow key={order._id}>
+                <TableCell>{order.code}</TableCell>
+                <TableCell>{order.ordered_date}</TableCell>
+                <TableCell>{order?.products?.map(()=>{
+                  return order.products.length
+                })} items</TableCell>
+                <TableCell>${order.total_bill}</TableCell>
                 <TableCell>
                   <Badge variant={order.status === 'delivered' ? 'default' : 'secondary'}>
                     {order.status}
                   </Badge>
                 </TableCell>
                 <TableCell className="text-right">
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" >
                     <Eye className="h-4 w-4" />
                   </Button>
                 </TableCell>

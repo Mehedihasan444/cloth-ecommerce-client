@@ -110,7 +110,7 @@ export default function Cart() {
               <div className="flex-1">
                 <h3 className="font-semibold">{item.name}</h3>
                 <p className="text-muted-foreground">Size: {item.quantity}</p>
-                <p className="font-medium">${item.price.toFixed(2)}</p>
+                <p className="font-medium">${item.price}</p>
               </div>
               <div className="flex items-center gap-2">
                 <Button
@@ -146,7 +146,7 @@ export default function Cart() {
             <div className="space-y-2 mb-4">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span>${total.toFixed(2)}</span>
+                <span>${total}</span>
               </div>
               <div className="flex justify-between">
                 <span>Shipping</span>
@@ -155,7 +155,7 @@ export default function Cart() {
               <div className="border-t pt-2 font-semibold">
                 <div className="flex justify-between">
                   <span>Total</span>
-                  <span>${total.toFixed(2)}</span>
+                  <span>${total}</span>
                 </div>
               </div>
             </div>

@@ -10,20 +10,21 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import { TOrder } from '@/Interface';
 
 export default function AdminOrders() {
-  const [orders, setorders] = useState([]);
-    useEffect(() => {
-      fetch("http://localhost:5000/orders")
-        .then((res) => res.json())
-        .then((data) => {
-          setorders(data);
-        })
-        .catch((error) => {
-          console.error('Error fetching products:', error);
-          toast.error('Failed to fetch products');
-        });
-    }, [orders]);
+  const [orders, setorders] = useState<TOrder[] | []>([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/orders")
+      .then((res) => res.json())
+      .then((data) => {
+        setorders(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching products:', error);
+        toast.error('Failed to fetch products');
+      });
+  }, [orders]);
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Orders</h1>
@@ -41,12 +42,12 @@ export default function AdminOrders() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {orders.map((order) => (
-              <TableRow key={order.id}>
-                <TableCell>{order.id}</TableCell>
-                <TableCell>{order.customer}</TableCell>
-                <TableCell>{order.date}</TableCell>
-                <TableCell>${order.total.toFixed(2)}</TableCell>
+            {orders.map((order: TOrder) => (
+              <TableRow key={order._id}>
+                <TableCell>{order.code}</TableCell>
+                <TableCell>{order.userEmail}</TableCell>
+                <TableCell>{order.ordered_date}</TableCell>
+                <TableCell>${order.total_bill}</TableCell>
                 <TableCell>
                   <Badge variant={order.status === 'completed' ? 'default' : 'secondary'}>
                     {order.status}
