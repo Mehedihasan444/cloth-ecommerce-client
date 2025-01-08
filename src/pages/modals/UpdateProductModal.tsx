@@ -1,26 +1,26 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { Button } from "@/components/ui/button";
-import { Edit, ImagePlus, Plus } from "lucide-react";
+import { Edit, ImagePlus } from "lucide-react";
 import { toast } from "sonner";
 import { Select, SelectValue, SelectItem, SelectTrigger, SelectContent } from "@/components/ui/select";
 import { uploadImage } from "../../lib/uploadimage";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { TProduct } from "@/Interface";
 
 interface ProductFormData {
     name: string;
-    image: File | null;
+    image: string | null;
     price: number;
     stock: number;
     category: string;
     description: string;
 }
-export default function UpdateProductModal({ Product }: { Product: string }) {
+export default function UpdateProductModal({ Product }: { Product: TProduct }) {
     const [open, setOpen] = useState(false);
-    const [category, setCategory] = useState<string>("");
     const [loading, setLoading] = useState(false);
     const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -48,7 +48,7 @@ export default function UpdateProductModal({ Product }: { Product: string }) {
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.[0]) {
-            setFormData({ ...formData, image: e.target.files[0] });
+            setImageFile(e.target.files[0] );
         }
     };
     const handleSubmit = async (e: React.FormEvent) => {
@@ -187,7 +187,7 @@ export default function UpdateProductModal({ Product }: { Product: string }) {
                                 className="flex items-center gap-2 cursor-pointer border rounded-md p-2"
                             >
                                 <ImagePlus className="h-4 w-4" />
-                                {formData.image ? formData.image.name : "Upload Image"}
+                                {imageFile ? imageFile.name : formData.image ? "Image Uploaded" : "Upload Image"}
                             </Label>
                         </div>
                         <div className="grid gap-2">
@@ -206,7 +206,7 @@ export default function UpdateProductModal({ Product }: { Product: string }) {
                         <Button type="button" variant="outline" onClick={() => setOpen(false)}>
                             Cancel
                         </Button>
-                        <Button type="submit">Update Product</Button>
+                        <Button type="submit"> {loading?"Loading":"Update Product"}</Button>
                     </div>
                 </form>
             </DialogContent>
