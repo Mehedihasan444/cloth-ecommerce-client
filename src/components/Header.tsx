@@ -39,9 +39,11 @@ const Header = () => {
                 setCartItems([]);
             }
         };
+        if (user?.email && cartItems.length === 0) {
+            fetchAppointments();
 
-        fetchAppointments();
-    }, [user?.email, axiosPublic]);
+        }
+    }, [user?.email, axiosPublic, cartItems]);
 
     // handle logout
     const handleLogout = async () => {
@@ -66,9 +68,9 @@ const Header = () => {
                         <Link to="/cart">
                             <Button variant="outline" className='relative '>
                                 <ShoppingCart className="h-5 w-5 " />
-                                {cartItems.length > 0 && (
+                                {cartItems?.length > 0 && (
                                     <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full w-5 h-5 text-xs flex items-center justify-center">
-                                        {cartItems.length}
+                                        {cartItems?.length}
                                     </span>
                                 )}
                             </Button>
@@ -83,15 +85,13 @@ const Header = () => {
                                 <DropdownMenuContent className="w-40">
                                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuItem>
-                                        <Link to="dashboard/profile">
-                                            <User className="h-5 w-5 mr-2" /> Profile
-                                        </Link>
+                                    <DropdownMenuItem onClick={() => window.location.assign("/dashboard/profile")} className='cursor-pointer'>
+                                        <User className="h-5 w-5 mr-2" /> Profile
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => navigate(`${user?.role === "user" ? "/dashboard" : "/admin"}`)}>
+                                    <DropdownMenuItem className='cursor-pointer' onClick={() =>  window.location.assign(`${user?.role === "user" ? "/dashboard" : "/admin"}`)}>
                                         <LayoutDashboard className="h-5 w-5 mr-2" /> Dashboard
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => handleLogout()}>
+                                    <DropdownMenuItem className='cursor-pointer' onClick={() => handleLogout()}>
                                         <LogOut className="h-5 w-5 mr-2" /> Logout
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>

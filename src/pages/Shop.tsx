@@ -1,85 +1,99 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '@/AuthProvider/Authprovider';
 import { toast } from 'sonner';
 import useAxiosPublic from '@/hooks/useAxiosPublic';
-import { Star } from 'lucide-react';
 
-const products = [
-  {
-    id: '1',
-    name: 'Classic White T-Shirt',
-    description: 'Essential cotton t-shirt in crisp white',
-    price: 29.99,
-    rating: 4,
-    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format',
-    category: 'tops',
-  },
-  {
-    id: '2',
-    name: 'Slim Fit Jeans',
-    description: 'Dark wash denim with perfect stretch',
-    price: 79.99,
-    rating: 3,
-    image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format',
-    category: 'bottoms',
-  },
-  {
-    id: '3',
-    name: 'Wool Blend Coat',
-    description: 'Elegant winter coat in charcoal grey',
-    price: 199.99,
-    rating: 5,
-    image: 'https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?w=500&auto=format',
-    category: 'outerwear',
-  },
-  {
-    id: '4',
-    name: 'Silk Blouse',
-    description: 'Luxurious silk blouse in soft pink',
-    price: 89.99,
-    rating: 4,
-    image: 'https://images.unsplash.com/photo-1551799517-eb8f03cb5e6a?w=500&auto=format',
-    category: 'tops',
-  },
-  {
-    id: '5',
-    name: 'Leather Jacket',
-    description: 'Classic black leather motorcycle jacket',
-    price: 299.99,
-    rating: 4.5,
-    image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format',
-    category: 'outerwear',
-  },
-  {
-    id: '6',
-    name: 'Pleated Skirt',
-    description: 'Elegant pleated midi skirt',
-    price: 69.99,
-    rating: 4,
-    image: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=500&auto=format',
-    category: 'bottoms',
-  },
-];
+import ProductCard from '@/components/ProductCard';
+import { TProduct } from '@/Interface';
+
+// const products = [
+//   {
+//     _id: '1',
+//     name: 'Classic White T-Shirt',
+//     description: 'Essential cotton t-shirt in crisp white',
+//     price: 29.99,
+//     rating: 4,
+//     image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format',
+//     category: 'tops',
+//   },
+//   {
+//     _id: '2',
+//     name: 'Slim Fit Jeans',
+//     description: 'Dark wash denim with perfect stretch',
+//     price: 79.99,
+//     rating: 3,
+//     image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format',
+//     category: 'bottoms',
+//   },
+//   {
+//     _id: '3',
+//     name: 'Wool Blend Coat',
+//     description: 'Elegant winter coat in charcoal grey',
+//     price: 199.99,
+//     rating: 5,
+//     image: 'https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?w=500&auto=format',
+//     category: 'outerwear',
+//   },
+//   {
+//     _id: '4',
+//     name: 'Silk Blouse',
+//     description: 'Luxurious silk blouse in soft pink',
+//     price: 89.99,
+//     rating: 4,
+//     image: 'https://images.unsplash.com/photo-1551799517-eb8f03cb5e6a?w=500&auto=format',
+//     category: 'tops',
+//   },
+//   {
+//     _id: '5',
+//     name: 'Leather Jacket',
+//     description: 'Classic black leather motorcycle jacket',
+//     price: 299.99,
+//     rating: 4.5,
+//     image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format',
+//     category: 'outerwear',
+//   },
+//   {
+//     _id: '6',
+//     name: 'Pleated Skirt',
+//     description: 'Elegant pleated midi skirt',
+//     price: 69.99,
+//     rating: 4,
+//     image: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=500&auto=format',
+//     category: 'bottoms',
+//   },
+// ];
 
 export default function Shop() {
   const [category, setCategory] = useState<string>('all');
   const [sort, setSort] = useState<string>('featured');
+  const [products, setProducts] = useState<TProduct[] | null>(null);
   const authContext = useContext(AuthContext);
   const user = authContext ? authContext.user : null;
   const axiosPublic = useAxiosPublic();
+
+
+  useEffect(() => {
+    try {
+      const getProducts = async () => {
+        const res = await axiosPublic.get('/admin/products');
+        console.log(res.data)
+        setProducts(res.data)
+      }
+      if (!products) {
+
+        getProducts();
+      }
+    } catch (error) {
+      console.log(error)
+
+    }
+  }, [axiosPublic, products])
+
   const filteredProducts = products
-    .filter((product) => category === 'all' || product.category === category)
+    ?.filter((product) => category === 'all' || product.category === category)
     .sort((a, b) => {
       if (sort === 'price-asc') return a.price - b.price;
       if (sort === 'price-desc') return b.price - a.price;
@@ -137,48 +151,8 @@ export default function Shop() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {filteredProducts.map((product) => (
-          <Card key={product.id}>
-            <CardHeader className="p-0">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-64 object-cover rounded-t-lg"
-              />
-            </CardHeader>
-            <CardContent className="p-6">
-              <CardTitle>{product.name}</CardTitle>
-              <CardDescription className="my-2">
-                {product.description}
-              </CardDescription>
-              <div className="flex items-center ">
-                {[...Array(Math.round(product?.rating))]?.map((_, i) => (
-                  <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              <p className="text-lg font-semibold mt-2">
-                ${product.price.toFixed(2)}
-              </p>
-            </CardContent>
-            <CardFooter>
-              <Button
-                className="w-full"
-                onClick={() =>
-                  handleCart(product)
-                  // addItem({
-                  //   id: product.id,
-                  //   name: product.name,
-                  //   price: product.price,
-                  //   image: product.image,
-                  //   quantity: 1,
-                  //   size: 'M',
-                  // })
-                }
-              >
-                Add to Cart
-              </Button>
-            </CardFooter>
-          </Card>
+        {filteredProducts?.map((product) => (
+          <ProductCard key={product._id} product={product} handleCart={handleCart} />
         ))}
       </div>
     </div>
