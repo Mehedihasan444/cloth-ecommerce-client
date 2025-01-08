@@ -41,7 +41,6 @@ const Header = () => {
         };
         if (user?.email && cartItems.length === 0) {
             fetchAppointments();
-
         }
     }, [user?.email, axiosPublic, cartItems]);
 
