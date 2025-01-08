@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { useLocation } from 'react-router-dom';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '@/AuthProvider/Authprovider';
@@ -73,14 +74,27 @@ export default function Shop() {
   const authContext = useContext(AuthContext);
   const user = authContext ? authContext.user : null;
   const axiosPublic = useAxiosPublic();
+const location = useLocation();
+const queryParams = new URLSearchParams(location.search);
+const categoryParam = queryParams.get('category');
 
+useEffect(() => {
+  if (categoryParam) setCategory(categoryParam);
+}, [categoryParam]);
 
   useEffect(() => {
     try {
       const getProducts = async () => {
-        const res = await axiosPublic.get('/admin/products');
-        console.log(res.data)
-        setProducts(res.data)
+        if (categoryParam){
+          const res = await axiosPublic.get(`/admin/products?category=${categoryParam}`);
+          console.log(res.data)
+          setProducts(res.data)
+        }else{
+
+          const res = await axiosPublic.get('/admin/products');
+          console.log(res.data)
+          setProducts(res.data)
+        }
       }
       if (!products) {
 
@@ -90,7 +104,7 @@ export default function Shop() {
       console.log(error)
 
     }
-  }, [axiosPublic, products])
+  }, [axiosPublic, products,categoryParam])
 
   const filteredProducts = products
     ?.filter((product) => category === 'all' || product.category === category)
@@ -135,6 +149,7 @@ export default function Shop() {
               <SelectItem value="Basic Joggers">Basic Joggers</SelectItem>
               <SelectItem value="Polo T-shirt">Polo T-shirt</SelectItem>
               <SelectItem value="Narrow Pants">Narrow Pants</SelectItem>
+              <SelectItem value="Hoodies">Hoodies</SelectItem>
               <SelectItem value="Cargo Pants">Cargo Pants</SelectItem>
             </SelectContent>
           </Select>
