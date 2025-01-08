@@ -8,8 +8,11 @@ import { uploadImage } from "../../lib/uploadimage";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectValue, SelectItem, SelectContent } from "@/components/ui/select";
+import { SelectTrigger } from "@radix-ui/react-select";
 export default function AddProductModal() {
     const [open, setOpen] = useState(false);
+    const [category, setCategory] = useState<string>("");
     const axiosPublic = useAxiosPublic();
     interface ProductFormData {
         name: string;
@@ -106,6 +109,18 @@ export default function AddProductModal() {
                                 value={formData.category}
                                 onChange={handleInputChange}
                             />
+                            {/* <Select value={category} onValueChange={setCategory}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Category" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="all">All Categories</SelectItem>
+                                    <SelectItem value="basic-joggers">Basic Joggers</SelectItem>
+                                    <SelectItem value="polo-tshirt">Polo T-shirt</SelectItem>
+                                    <SelectItem value="narrow-pants">Narrow Pants</SelectItem>
+                                    <SelectItem value="cargo-pants">Cargo Pants</SelectItem>
+                                </SelectContent>
+                            </Select> */}
                         </div>
                         <div className="flex gap-2 justify-between items-center">
                             <div className="flex-1">
